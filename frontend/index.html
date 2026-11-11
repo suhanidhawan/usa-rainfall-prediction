@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RainScope — USA Rainfall Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon">☂</div><div><b>RainScope</b><small>WEATHER INTELLIGENCE</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav active" href="#overview"><span>◫</span> Overview</a>
+    <a class="nav" href="#predict"><span>✳</span> Rain prediction</a>
+    <a class="nav" href="#insights"><span>▥</span> Data insights</a>
+    <div class="side-bottom"><div class="status-dot"></div><div><b>Prediction API</b><small id="api-status">Connecting…</small></div></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><div class="eyebrow">UNITED STATES · CLIMATE DATA</div><h1>Rainfall intelligence</h1><p>Explore patterns and estimate the chance of rain tomorrow.</p></div><div class="top-date" id="today"></div></header>
+    <section id="overview">
+      <div class="section-heading"><div><h2>Dataset overview</h2><p>2024–2025 historical observations across 20 US locations</p></div><span class="live-pill"><i></i> MODEL ONLINE</span></div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Records analyzed</span><span class="stat-icon blue">▤</span></div><strong id="records">—</strong><small>Daily observations</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Locations</span><span class="stat-icon purple">⌖</span></div><strong id="locations">—</strong><small>Across the United States</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Rain days</span><span class="stat-icon teal">☔</span></div><strong id="rain-rate">—</strong><small>Share labeled rain tomorrow</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Dry days</span><span class="stat-icon orange">☀</span></div><strong id="dry-rate">—</strong><small>Share labeled no rain</small></article>
+      </div>
+    </section>
+    <section id="predict" class="prediction-section">
+      <div class="section-heading"><div><h2>Tomorrow’s rain estimate</h2><p>Enter weather conditions to generate a machine-learning prediction.</p></div></div>
+      <div class="prediction-layout">
+        <form id="prediction-form" class="panel form-panel">
+          <div class="panel-title"><div class="mini-icon">✳</div><div><b>Weather conditions</b><small>All fields are required</small></div></div>
+          <div class="form-grid">
+            <label class="full">US location<select id="location" required></select></label>
+            <label class="full">Forecast date<input id="date" type="date" required></label>
+            <label>Temperature (°F)<input id="temperature" type="number" step="0.1" value="68" required></label>
+            <label>Humidity (%)<input id="humidity" type="number" min="0" max="100" step="0.1" value="65" required></label>
+            <label>Wind speed (mph)<input id="wind" type="number" min="0" step="0.1" value="8" required></label>
+            <label>Precipitation (mm)<input id="precipitation" type="number" min="0" step="0.01" value="0.2" required></label>
+            <label>Cloud cover (%)<input id="cloud" type="number" min="0" max="100" step="0.1" value="55" required></label>
+            <label>Pressure (hPa)<input id="pressure" type="number" min="800" max="1200" step="0.1" value="1013" required></label>
+          </div>
+          <button class="primary-btn" type="submit" id="predict-btn">Generate prediction <span>→</span></button>
+          <div class="form-error" id="form-error"></div>
+        </form>
+        <div class="result-panel panel" id="result-panel">
+          <div class="result-top"><span class="result-label">PREDICTION RESULT</span><span class="result-symbol">☁</span></div>
+          <div class="empty-result" id="empty-result"><div class="cloud-art">☁</div><h3>Your forecast starts here</h3><p>Complete the weather inputs and generate a prediction to see the estimated rain probability.</p></div>
+          <div id="result-content" hidden>
+            <div class="result-outcome" id="result-outcome">—</div>
+            <div class="probability"><strong id="probability">—</strong><span>rain probability</span></div>
+            <div class="meter"><div id="meter-fill"></div></div>
+            <div class="result-meta"><span>Model confidence</span><b id="confidence">—</b></div>
+            <p class="result-note" id="result-note"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="insights">
+      <div class="section-heading"><div><h2>Location insights</h2><p>Historical percentage of records where rain was recorded for the following day.</p></div></div>
+      <div class="panel chart-panel"><div class="chart-head"><div><b>Rain frequency by location</b><small>Share of positive rain labels</small></div><span class="chart-tag">2024–2025</span></div><div id="location-chart" class="bar-chart"><div class="loading">Loading location data…</div></div></div>
+      <div class="section-heading recent-heading"><div><h2>Recent dataset records</h2><p>Latest observations included in the supplied CSV.</p></div></div>
+      <div class="panel table-panel"><div class="table-scroll"><table><thead><tr><th>Date</th><th>Location</th><th>Temp °F</th><th>Humidity</th><th>Precipitation</th><th>Tomorrow</th></tr></thead><tbody id="recent-rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div></div>
+    </section>
+    <footer>RainScope · USA Rainfall Prediction Project <span>Educational machine-learning demo · Not an official weather service</span></footer>
+  </main>
+</div>
+<script src="app.js"></script>
+</body></html>
